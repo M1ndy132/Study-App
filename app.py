@@ -1,4 +1,5 @@
 from flask import Flask
+from db import create_connection
 
 app = Flask(__name__)
 

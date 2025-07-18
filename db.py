@@ -1,5 +1,5 @@
 import mysql.connector
-from mysql.connector import Error
+from mysql.connector import Error, IntegrityError
 
 def create_connection():
     try:
@@ -9,10 +9,16 @@ def create_connection():
             password = 'My$qL$cH123@@',
             database = 'StudyApp'
         )
+        
         if connection.is_connected():
+            mycursor = connection.cursor()
             print("Successfully connected to database")
-            return connection
+            return connection, mycursor
         
     except Error as e:
-        print(f"Error connectimg to database: {e}")
-        return None
+        print(f"Error connecting to database: {e}")
+        return None, None
+
+# Create global connection and cursor objects
+connection, mycursor = create_connection()
+    
